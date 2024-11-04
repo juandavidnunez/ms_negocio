@@ -28,6 +28,9 @@ export default class HotelsController {
     const body = await request.validate(hotelValidation);
     const theHotel = await Hotel.findOrFail(params.id)
     theHotel.nombre = body.nombre
+    theHotel.descripcion = body.descripcion
+
+
     return theHotel.save()
   }
 

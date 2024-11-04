@@ -28,6 +28,7 @@ export default class RestaurantesController {
     const body = await request.validate(restauranteValidation);
     const theRestaurante = await Restaurante.findOrFail(params.id)
     theRestaurante.nombre = body.nombre
+    theRestaurante.descripcion = body.descripcion
     return theRestaurante.save()
   }
 

@@ -1,14 +1,8 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import axios from 'axios'
-import Env from '@ioc:Adonis/Core/Env'
-import { schema, rules } from '@ioc:Adonis/Core/Validator'
 
-// Validador para usuarios
-const usuarioValidation = schema.create({
-  userId: schema.string({}, [
-    rules.required(),
-  ]),
-})
+
+
 
 export default class AdministradorsController {
   private apiUrl: string;

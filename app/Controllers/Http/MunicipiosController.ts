@@ -4,14 +4,13 @@ import { MunicipioValidation } from 'App/Validators/MunicipioValidator';
 
 
 export default class MunicipiosController {
-  // Create a new City
-  public async create({ request }: HttpContextContract) {
+
+    public async create({ request }: HttpContextContract) {
     const body = await request.validate(MunicipioValidation);
     const theMunicipio = await Municipio.create(body)
     return theMunicipio
 }
 
-  // Get all Citys
   public async findAll({ request }: HttpContextContract) {
     const page = request.input('page', 1)
     const perPage = request.input('perPage', 20)
@@ -19,14 +18,12 @@ export default class MunicipiosController {
     return Municipios
   }
 
-  // Get a City by id
 
   public async findById({ params }: HttpContextContract) {
     const theMunicipio = await Municipio.findOrFail(params.id)
     return theMunicipio
   }
 
-  // Update a city by id
 
   public async update({ params, request }: HttpContextContract) {
     const body = await request.validate(MunicipioValidation);
@@ -35,7 +32,6 @@ export default class MunicipiosController {
     return theMunicipio.save()
   }
 
-  // Delete a driver by id
 
   public async delete({ params, response }: HttpContextContract) {
     const theMunicipio = await Municipio.findOrFail(params.id)
