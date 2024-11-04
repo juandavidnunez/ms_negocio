@@ -1,25 +1,26 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, HasMany, hasMany } from '@ioc:Adonis/Lucid/Orm'
-import Hotel from './Hotel'
+import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import Servicio from './Servicio'
 
-export default class Servicio extends BaseModel {
+export default class Restaurante extends BaseModel {
   @column({ isPrimary: true })
   public id: number
-  @column()
-  public descripcion: string
 
   @column()
-  public estado_servicio: boolean
+  public nombre:string
+  @column()
+  public descripcion: string
+  @column()
+  public servicio_id: number
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
-  
-
-  @hasMany(() => Hotel, {
+    
+  @belongsTo(() => Servicio, {
     foreignKey: 'servicio_id',
-   })
-   public hotel: HasMany<typeof Hotel>
+  })
+  public servicio: BelongsTo<typeof Servicio>
 }
