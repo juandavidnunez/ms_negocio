@@ -1,13 +1,21 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import CentrosDistribucion from './CentrosDistribucion'
 
 export default class Direccion extends BaseModel {
   @column({ isPrimary: true })
   public id: number
+  @column()
+  public direccion : string
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
+
+  @belongsTo(() => CentrosDistribucion, {
+    foreignKey: 'CentrosDistribucion_id',
+  })
+  public CentrosDistribucion: BelongsTo<typeof CentrosDistribucion>
 }
