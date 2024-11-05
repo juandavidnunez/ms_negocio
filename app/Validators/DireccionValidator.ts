@@ -5,6 +5,10 @@ export const direccionValidation = {
     direccion: schema.string({}, [
       rules.required(),
       rules.maxLength(15)
+    ]),
+    CentrosDistribucion_id :schema.number([
+      rules.required(),
+      rules.exists({ table: 'centrosDistribucions', column: 'id' })
     ])
   })
 }

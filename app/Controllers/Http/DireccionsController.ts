@@ -28,6 +28,8 @@ export default class DireccionsController {
     const body = await request.validate(direccionValidation);
     const theDireccion = await Direccion.findOrFail(params.id)
     theDireccion.direccion = body.direccion
+    theDireccion.CentrosDistribucion_id = body.CentrosDistribucion_id 
+
     return theDireccion.save()
   }
 

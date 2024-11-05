@@ -5,6 +5,9 @@ import Direccion from './Direccion'
 export default class CentrosDistribucion extends BaseModel {
   @column({ isPrimary: true })
   public id: number
+  @column()
+  public nombre: string
+  
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
@@ -14,7 +17,7 @@ export default class CentrosDistribucion extends BaseModel {
 
   
   @hasMany(() => Direccion, {
-    foreignKey: 'departamento_id',
+    foreignKey: 'CentrosDistribucion_id',
    })
    public Direcciones: HasMany<typeof Direccion>
 }
