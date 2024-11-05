@@ -17,7 +17,7 @@ export default class CentrosDistribucion extends BaseModel {
 
   
   @hasMany(() => Direccion, {
-    foreignKey: 'CentrosDistribucion_id',
+    foreignKey: 'centros_distribucions_id',
    })
    public Direcciones: HasMany<typeof Direccion>
 }

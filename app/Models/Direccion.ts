@@ -9,7 +9,7 @@ export default class Direccion extends BaseModel {
   public direccion : string
 
   @column()
-  CentrosDistribucion_id :number
+  centros_distribucions_id :number
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
@@ -18,7 +18,7 @@ export default class Direccion extends BaseModel {
   public updatedAt: DateTime
 
   @belongsTo(() => CentrosDistribucion, {
-    foreignKey: 'CentrosDistribucion_id',
+    foreignKey: 'centros_distribucions_id',
   })
   public CentrosDistribucion: BelongsTo<typeof CentrosDistribucion>
 }

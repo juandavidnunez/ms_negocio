@@ -29,9 +29,9 @@ import './routes/departamentos'
 import './routes/servicios'
 import './routes/municipios'
 import './routes/centrosdistribucion'
-import './routes/direcciones'
+import './routes/direccion'
 import './routes/hoteles'
-import './routes/restaurantes.ts'
+import './routes/restaurantes'
 
 
 
