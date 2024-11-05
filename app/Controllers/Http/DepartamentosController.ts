@@ -25,6 +25,9 @@ export default class DepartamentosController {
     const theDepartamento = await Departamento.findOrFail(params.id)
     return theDepartamento
   }
+  public async show ({params}:HttpContextContract){
+    return Departamento.query().where("id",params.id).preload('Municipioes');
+  }
 
   // Update a driver by id
 
@@ -42,4 +45,5 @@ export default class DepartamentosController {
     response.status(204)
     return await theDepartamento.delete()
   }
+
 }

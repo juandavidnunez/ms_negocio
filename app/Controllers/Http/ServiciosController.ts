@@ -18,7 +18,13 @@ export default class ServiciosController {
     let servicio: Servicio[] = await Servicio.query().paginate(page, perPage)
     return servicio
   }
-
+  public async show({ params }: HttpContextContract) {
+    return Servicio.query()
+      .where("id", params.id)
+      .preload('restaurante')
+      .preload('hotel');
+  }
+  
   // Get a servio by id
 
   public async findById({ params }: HttpContextContract) {

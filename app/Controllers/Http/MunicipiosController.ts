@@ -17,7 +17,9 @@ export default class MunicipiosController {
     let Municipios: Municipio[] = await Municipio.query().paginate(page, perPage)
     return Municipios
   }
-
+  public async show ({params}:HttpContextContract){
+    return Municipio.query().where("id",params.id).preload('sedes')
+  }
 
   public async findById({ params }: HttpContextContract) {
     const theMunicipio = await Municipio.findOrFail(params.id)

@@ -16,6 +16,9 @@ export default class CentrosDistribucionsController {
     let CentrosDistribucions: CentrosDistribucion[] = await CentrosDistribucion.query().paginate(page, perPage)
     return CentrosDistribucions
   }
+  public async show ({params}:HttpContextContract){
+    return CentrosDistribucion.query().where("id",params.id).preload('Direcciones');
+  }
 
 
   public async findById({ params }: HttpContextContract) {
