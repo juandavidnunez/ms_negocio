@@ -8,7 +8,7 @@ export default class Cliente extends BaseModel {
   public id: number
 
   @column()
-  public security_id: string
+  public user_id: number
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
