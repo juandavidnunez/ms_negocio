@@ -8,6 +8,8 @@ export default class extends BaseSchema {
       table.increments('id')
       table.string('nombre')
 
+      table.integer('municipio_id').unsigned().references('municipios.id').onDelete('CASCADE')
+
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
        */

@@ -1,6 +1,8 @@
 import { DateTime } from 'luxon'
-import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, belongsTo, column, ManyToMany, manyToMany } from '@ioc:Adonis/Lucid/Orm'
 import CentrosDistribucion from './CentrosDistribucion'
+import Municipio from './Municipio'
+import Ruta from './Ruta'
 
 export default class Direccion extends BaseModel {
   @column({ isPrimary: true })
@@ -8,6 +10,8 @@ export default class Direccion extends BaseModel {
   @column()
   public direccion : string
 
+  @column()
+  public municipio_id : number
   @column()
   centros_distribucions_id :number
 
@@ -20,5 +24,18 @@ export default class Direccion extends BaseModel {
   @belongsTo(() => CentrosDistribucion, {
     foreignKey: 'centros_distribucions_id',
   })
-  public CentrosDistribucion: BelongsTo<typeof CentrosDistribucion>
+  public centroDistribucion: BelongsTo<typeof CentrosDistribucion>
+
+  @belongsTo(() => Municipio, {
+    foreignKey: 'municipio_id',
+  })
+  public municipio: BelongsTo<typeof Municipio>
+
+  @manyToMany(() => Ruta, {
+    pivotTable: 'dir_lista_ordenes',
+    pivotForeignKey: 'direccion_id',
+    pivotRelatedForeignKey: 'ruta_id',
+    pivotColumns: ['orden', 'created_at', 'updated_at'],
+  })
+  public rutas: ManyToMany<typeof Ruta>
 }
