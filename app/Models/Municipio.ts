@@ -4,6 +4,7 @@ import Departamento from './Departamento'
 import CentrosDistribucion from './CentrosDistribucion'
 import Direccion from './Direccion'
 import Vehiculo from './Vehiculo'
+import Operacion from './Operacion'
 
 export default class Municipio extends BaseModel {
   public static table = 'municipios'
@@ -44,5 +45,10 @@ export default class Municipio extends BaseModel {
     pivotColumns: ['created_at', 'updated_at'],
   })
   public vehiculos: ManyToMany<typeof Vehiculo>
+
+  @hasMany(() => Operacion, {
+    foreignKey: 'municipio_id',
+  })
+  public operaciones: HasMany<typeof Operacion>
 }
 

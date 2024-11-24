@@ -3,6 +3,8 @@ import { BaseModel, column, HasMany, hasMany, ManyToMany, manyToMany } from '@io
 import Municipio from './Municipio'
 import Seguro from './Seguro'
 import Contrato from './Contrato'
+import Operacion from './Operacion'
+import Ruta from './Ruta'
 
 export default class Vehiculo extends BaseModel {
   @column({ isPrimary: true })
@@ -40,4 +42,14 @@ export default class Vehiculo extends BaseModel {
     foreignKey: 'vehiculo_id',
   })
   public seguros: HasMany<typeof Seguro>
+
+  @hasMany(() => Operacion,{
+    foreignKey: 'vehiculo_id',
+  })
+  public operaciones: HasMany<typeof Operacion>
+
+  @hasMany(() => Ruta, {
+    foreignKey: 'vehiculo_id',
+  })
+  public rutas: HasMany<typeof Ruta>
 }

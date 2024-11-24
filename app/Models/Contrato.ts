@@ -3,6 +3,7 @@ import { BaseModel, BelongsTo, belongsTo, column, HasMany, hasMany, manyToMany, 
 import Vehiculo from './Vehiculo'
 import Cuota from './Cuota'
 import Cliente from './Cliente'
+import Ruta from './Ruta'
 
 export default class Contrato extends BaseModel {
   @column({ isPrimary: true })
@@ -43,4 +44,9 @@ export default class Contrato extends BaseModel {
     foreignKey: 'cliente_id'
   })
   public cliente: BelongsTo<typeof Cliente>
+
+  @hasMany(() => Ruta, {
+    foreignKey: 'contrato_id',
+  })
+  public rutas: HasMany<typeof Ruta>
 }
