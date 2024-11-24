@@ -33,6 +33,22 @@ import './routes/direccion'
 import './routes/hoteles'
 import './routes/restaurantes'
 
+import '/routes/vehiculos'
+import '/routes/operaciones'
+import '/routes/clientes'
+import '/routes/contratos'
+import '/routes/rutas'
+import '/routes/dir_lista_ordenes'
+import '/routes/seguros'
+import '/routes/lotes'
+import '/routes/productos'
+import '/routes/categorias'
+import '/routes/categorias_productos'
+import '/routes/empresas'
+import '/routes/cuotas'
+
+
+
 
 
 
