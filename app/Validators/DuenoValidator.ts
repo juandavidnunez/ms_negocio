@@ -5,11 +5,6 @@ export const duenoValidation = {
     nombre: schema.string({}, [
       rules.required()
     ]),
-    email: schema.string({}, [
-      rules.email(),
-      rules.unique({ table: 'duenos', column: 'email' }),
-      rules.required()
-    ]),
     fecha_nacimiento: schema.date({}, [
       rules.required()
     ]),

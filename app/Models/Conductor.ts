@@ -19,7 +19,7 @@ export default class Conductor extends BaseModel {
   public cedula: string
 
   @column()
-  public user_id: number // Id for the user in users
+  public user_id: number 
 
   @belongsTo(() => Usuario, {
     foreignKey: 'user_id'

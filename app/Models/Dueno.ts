@@ -11,16 +11,13 @@ export default class Dueno extends BaseModel {
   public nombre: string
 
   @column()
-  public email: string
-
-  @column()
   public fecha_nacimiento: DateTime
 
   @column()
   public cedula: string
 
   @column()
-  public user_id: number // Id for the user in users
+  public user_id: number 
 
   @belongsTo(() => Usuario, {
     foreignKey: 'user_id'
