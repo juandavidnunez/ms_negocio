@@ -1,40 +1,40 @@
-import { DateTime } from 'luxon'
-import { BaseModel, BelongsTo, belongsTo, column, HasMany, hasMany } from '@ioc:Adonis/Lucid/Orm'
-import Lote from './Lote'
-import Ruta from './Ruta'
-import Direccion from './Direccion'
+import { DateTime } from 'luxon';
+import { BaseModel, BelongsTo, belongsTo, column, HasMany, hasMany } from '@ioc:Adonis/Lucid/Orm';
+import Lote from './Lote';
+import Ruta from './Ruta';
+import Direccion from './Direccion';
 
 export default class DirListaOrden extends BaseModel {
   @column({ isPrimary: true })
-  public id: number
+  public id: number;
 
   @column()
-  public orden: number
+  public orden: number;
 
   @column()
-  public ruta_id: number
+  public rutaId: number;
 
   @column()
-  public direccion_id: number
+  public direccionId: number;
 
   @column.dateTime({ autoCreate: true })
-  public createdAt: DateTime
+  public createdAt: DateTime;
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
-  public updatedAt: DateTime
+  public updatedAt: DateTime;
 
   @hasMany(() => Lote, {
-    foreignKey: 'dir_lista_orden_id'
+    foreignKey: 'dirListaOrdenId',
   })
-  public lotes: HasMany<typeof Lote>
+  public lotes: HasMany<typeof Lote>;
 
   @belongsTo(() => Ruta, {
-    foreignKey: 'ruta_id'
+    foreignKey: 'rutaId',
   })
-  public ruta: BelongsTo<typeof Ruta>
+  public ruta: BelongsTo<typeof Ruta>;
 
   @belongsTo(() => Direccion, {
-    foreignKey: 'direccion_id'
+    foreignKey: 'direccionId',
   })
-  public direccion: BelongsTo<typeof Direccion>
+  public direccion: BelongsTo<typeof Direccion>;
 }

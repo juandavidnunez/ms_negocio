@@ -1,26 +1,26 @@
-import { DateTime } from 'luxon'
-import { BaseModel, BelongsTo, belongsTo, column, HasMany, hasMany, ManyToMany, manyToMany } from '@ioc:Adonis/Lucid/Orm'
-import Direccion from './Direccion'
-import Lote from './Lote'
-import Vehiculo from './Vehiculo'
-import Contrato from './Contrato'
-import DirListaOrden from './DirListaOrden'
+import { DateTime } from 'luxon';
+import { BaseModel, BelongsTo, belongsTo, column, HasMany, hasMany, ManyToMany, manyToMany } from '@ioc:Adonis/Lucid/Orm';
+import Direccion from './Direccion';
+import Lote from './Lote';
+import Vehiculo from './Vehiculo';
+import Contrato from './Contrato';
+import DirListaOrden from './DirListaOrden';
 
 export default class Ruta extends BaseModel {
   @column({ isPrimary: true })
-  public id: number
+  public id: number;
 
   @column()
-  public contrato_id: number
+  public contratoId: number;
 
   @column()
-  public vehiculo_id: number
+  public vehiculoId: number;
 
   @column.dateTime({ autoCreate: true })
-  public createdAt: DateTime
+  public createdAt: DateTime;
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
-  public updatedAt: DateTime
+  public updatedAt: DateTime;
 
   @manyToMany(() => Direccion, {
     pivotTable: 'dir_lista_ordenes',
@@ -28,25 +28,25 @@ export default class Ruta extends BaseModel {
     pivotRelatedForeignKey: 'direccion_id',
     pivotColumns: ['orden', 'created_at', 'updated_at'],
   })
-  public direcciones: ManyToMany<typeof Direccion>
+  public direcciones: ManyToMany<typeof Direccion>;
 
-  @hasMany(() => Lote,{
-    foreignKey: 'ruta_id'
+  @hasMany(() => Lote, {
+    foreignKey: 'rutaId',
   })
-  public lotes: HasMany<typeof Lote>
+  public lotes: HasMany<typeof Lote>;
 
-  @belongsTo(() => Vehiculo,{
-    foreignKey: 'vehiculo_id'
+  @belongsTo(() => Vehiculo, {
+    foreignKey: 'vehiculoId',
   })
-  public vehiculo: BelongsTo<typeof Vehiculo>
+  public vehiculo: BelongsTo<typeof Vehiculo>;
 
   @belongsTo(() => Contrato, {
-    foreignKey: 'contrato_id'
+    foreignKey: 'contratoId',
   })
-  public contrato: BelongsTo<typeof Contrato>
+  public contrato: BelongsTo<typeof Contrato>;
 
-  @hasMany(() => DirListaOrden,{
-    foreignKey: 'ruta_id'
+  @hasMany(() => DirListaOrden, {
+    foreignKey: 'rutaId',
   })
-  public dirListaOrdenes: HasMany<typeof DirListaOrden>
+  public dirListaOrdenes: HasMany<typeof DirListaOrden>;
 }

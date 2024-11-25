@@ -1,36 +1,38 @@
-import { DateTime } from 'luxon'
-import { BaseModel, BelongsTo, belongsTo, column, HasMany, hasMany, ManyToMany, manyToMany } from '@ioc:Adonis/Lucid/Orm'
-import CentrosDistribucion from './CentrosDistribucion'
-import Municipio from './Municipio'
-import Ruta from './Ruta'
-import DirListaOrden from './DirListaOrden'
+import { DateTime } from 'luxon';
+import { BaseModel, BelongsTo, belongsTo, column, HasMany, hasMany, ManyToMany, manyToMany } from '@ioc:Adonis/Lucid/Orm';
+import CentrosDistribucion from './CentrosDistribucion';
+import Municipio from './Municipio';
+import Ruta from './Ruta';
+import DirListaOrden from './DirListaOrden';
 
 export default class Direccion extends BaseModel {
   @column({ isPrimary: true })
-  public id: number
-  @column()
-  public direccion : string
+  public id: number;
 
   @column()
-  public municipio_id : number
+  public direccion: string;
+
   @column()
-  centros_distribucions_id :number
+  public municipioId: number;
+
+  @column()
+  public centrosDistribucionId: number;
 
   @column.dateTime({ autoCreate: true })
-  public createdAt: DateTime
+  public createdAt: DateTime;
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
-  public updatedAt: DateTime
+  public updatedAt: DateTime;
 
   @belongsTo(() => CentrosDistribucion, {
-    foreignKey: 'centros_distribucions_id',
+    foreignKey: 'centrosDistribucionId',
   })
-  public centroDistribucion: BelongsTo<typeof CentrosDistribucion>
+  public centroDistribucion: BelongsTo<typeof CentrosDistribucion>;
 
   @belongsTo(() => Municipio, {
-    foreignKey: 'municipio_id',
+    foreignKey: 'municipioId',
   })
-  public municipio: BelongsTo<typeof Municipio>
+  public municipio: BelongsTo<typeof Municipio>;
 
   @manyToMany(() => Ruta, {
     pivotTable: 'dir_lista_ordenes',
@@ -38,10 +40,10 @@ export default class Direccion extends BaseModel {
     pivotRelatedForeignKey: 'ruta_id',
     pivotColumns: ['orden', 'created_at', 'updated_at'],
   })
-  public rutas: ManyToMany<typeof Ruta>
+  public rutas: ManyToMany<typeof Ruta>;
 
-  @hasMany(() => DirListaOrden,{
-    foreignKey: 'direccion_id'
+  @hasMany(() => DirListaOrden, {
+    foreignKey: 'direccionId',
   })
-  public dirListaOrdenes: HasMany<typeof DirListaOrden>
+  public dirListaOrdenes: HasMany<typeof DirListaOrden>;
 }
