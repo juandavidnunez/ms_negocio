@@ -1,31 +1,24 @@
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Cliente from 'App/Models/Cliente'
-import { clienteValidation } from 'App/Validators/ClientesValidator'
-import axios from 'axios'
-import TitularesController from './TitularesController';
+import axios from 'axios';
+import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
+import Cliente from 'App/Models/Cliente';
 
-
-
-export default class ClientesController {
- 
+class ClientesController {
   private apiUrl: string;
 
   constructor() {
-    this.apiUrl = 'http://localhost:8080/api';
+    this.apiUrl = 'http://localhost:8080';
   }
 
-  // Crear un nuevo usuario
   public async create({ request, response }: HttpContextContract) {
     try {
       const body = request.only(['name', 'email', 'password']);
       const token = request.header('Authorization');
-      const toke=token
-  
+
       if (!token) {
         return response.status(401).send('Token de acceso faltante');
       }
-  
-      // Crear usuario
+
+      // Crear usuario en el microservicio de seguridad
       const userResponse = await axios.post(
         `${this.apiUrl}/users`,
         {
@@ -38,63 +31,55 @@ export default class ClientesController {
             'Authorization': token,
           },
         }
-        
       );
-  
+
       // Obtener el ID del usuario desde la respuesta
       const userId = userResponse.data._id;
-  
+
       // Verificar que el ID del usuario no sea undefined
       if (!userId) {
         return response.status(500).send('Error al crear el usuario, ID no encontrado');
       }
-      console.log(toke)
 
       // Asignar rol al usuario creado
-      const roleResponse = await axios.put(
-        `${this.apiUrl}/users/${userId}/role/66526ee52e42f03cc82c1c7f`,
+      const roleResponse = await axios.post(
+        `${this.apiUrl}/user_roles/user/${userId}/role/66526ee52e42f03cc82c1c7f`,
         {},
         {
           headers: {
-            'Authorization': toke,
+            'Authorization': token,
           },
         }
       );
-  
-      // Responder con los datos del rol asignado
-      response.status(roleResponse.status).send(roleResponse.data);
+
+      // Verificar que la asignación de rol fue exitosa
+      if (roleResponse.status !== 200) {
+        return response.status(roleResponse.status).send('Error al asignar el rol');
+      }
+
+      // Crear un nuevo cliente en tu base de datos con el ID de usuario
+      const cliente = new Cliente();
+      cliente.user_id = userId; // Guarda el ID del usuario en el modelo Cliente
+      await cliente.save();
+
+      // Responder con los datos del cliente creado
+      response.status(201).send({
+        user: userResponse.data,
+        role: roleResponse.data,
+        cliente: cliente,
+      });
     } catch (error) {
       console.error('Error al consumir la API de Adonis:', error);
-  
+
       // Manejo de errores con detalles
       const status = error.response?.status || 500;
       const message = error.response?.data || 'Error al consumir la API de Adonis';
-  
+
       response.status(status).send(message);
     }
   }
-  
 
-  // Listar todos los usuarios
-  public async findAll({ request, response }: HttpContextContract) {
-    try {
-      const token = request.header('Authorization');
-      if (!token) {
-        return response.status(401).send('Token de acceso faltante');
-      }
 
-      const adonisResponse = await axios.get(`${this.apiUrl}/users`, {
-        headers: {
-          'Authorization': token,
-        },
-      });
-
-      response.status(adonisResponse.status).send(adonisResponse.data);
-    } catch (error) {
-      console.error('Error al consumir la API de Adonis:', error);
-      response.status(error.response?.status || 500).send('Error al consumir la API de Adonis');
-    }
-  }
 
   // Obtener un usuario por id
   public async findById({ params, request, response }: HttpContextContract) {
@@ -171,3 +156,4 @@ export default class ClientesController {
     }
   }
 }
+export default ClientesController;

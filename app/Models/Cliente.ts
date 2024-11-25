@@ -8,7 +8,7 @@ export default class Cliente extends BaseModel {
   public id: number
 
   @column()
-  public user_id: number
+  public user_id: string
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
@@ -16,12 +16,12 @@ export default class Cliente extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
-  @hasMany(() => Contrato, {
+  @hasMany(() => Contrato,{
     foreignKey: 'cliente_id'
   })
   public contratos: HasMany<typeof Contrato>
 
-  @hasMany(() => Producto, {
+  @hasMany(() => Producto,{
     foreignKey: 'cliente_id'
   })
   public productos: HasMany<typeof Producto>
