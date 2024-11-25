@@ -1,13 +1,12 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 
-export default class Duenos extends BaseSchema {
-  protected tableName = 'duenos'
+export default class Conductores extends BaseSchema {
+  protected tableName = 'conductores'
 
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
       table.string('nombre').notNullable()
-      table.string('email').notNullable().unique()
       table.date('fecha_nacimiento').notNullable()
       table.string('cedula').notNullable().unique()
       table.integer('user_id').unsigned().references('id').inTable('usuarios').onDelete('CASCADE')
