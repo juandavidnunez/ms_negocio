@@ -13,7 +13,7 @@ export const loteValidation = {
     ]),
 
     dir_lista_orden_id: schema.number([
-        rules.exists({ table: 'dir_lista_ordenes', column: 'id' }),
+        rules.exists({ table: 'dir_lista_ordens', column: 'id' }),
         rules.required()
     ]),
     ruta_id: schema.number([
