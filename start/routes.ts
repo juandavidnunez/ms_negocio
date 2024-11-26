@@ -47,6 +47,13 @@ import './routes/categorias'
 import './routes/categorias_productos'
 import './routes/empresas'
 import './routes/cuotas'
+import './routes/vehiculoConductors'
+import './routes/vehiculoDuenos'
+import './routes/turnos'
+import './routes/personasnaturales'
+
+
+
 
 
 
