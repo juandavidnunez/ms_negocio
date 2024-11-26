@@ -2,11 +2,14 @@ import axios from 'axios';
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import Cliente from 'App/Models/Cliente';
 
+const { Env } = require('@adonisjs/core/build/standalone');
+
 class ClientesController {
   private apiUrl: string;
 
   constructor() {
-    this.apiUrl = 'http://localhost:8080';
+    this.apiUrl = 'http://localhost:8081';
+    //this.apiUrl = Env.MS_SECURITY;
   }
 
   public async create({ request, response }: HttpContextContract) {
@@ -43,7 +46,7 @@ class ClientesController {
 
       // Asignar rol al usuario creado
       const roleResponse = await axios.post(
-        `${this.apiUrl}/user_roles/user/${userId}/role/66526ee52e42f03cc82c1c7f`,
+        `${this.apiUrl}/user_roles/user/${userId}/role/67453fbefc75550ebedaf728`,
         {},
         {
           headers: {

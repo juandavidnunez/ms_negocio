@@ -8,6 +8,9 @@ export default class Empresa extends BaseModel {
   public id: number
 
   @column()
+  public razon_social: string
+
+  @column()
   public cliente_id: number
 
   @hasOne(() => PersonaNatural, {

@@ -43,7 +43,7 @@ class AdministradoresController {
   
       // Asignar rol al usuario creado
       const roleResponse = await axios.post(
-        `${this.apiUrl}/user_roles/user/${userId}/role/664f1e495294c54dc1d03e54`,
+        `${this.apiUrl}/user_roles/user/${userId}/role/66fb049926de107d4f72c4f0`,
         {},
         {
           headers: {
