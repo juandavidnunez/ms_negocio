@@ -4,6 +4,7 @@ import VehiculoConductor from './VehiculoConductor'
 import Turno from './Turno'
 import Usuario from './Usuario'
 import Vehiculo from './Vehiculo'
+import Gasto from './Gasto'
 
 export default class Conductor extends BaseModel {
   @column({ isPrimary: true })
@@ -30,6 +31,11 @@ export default class Conductor extends BaseModel {
     foreignKey: 'conductor_id'
   })
   public vehiculoConductor: HasMany<typeof VehiculoConductor>
+
+  @hasMany(() => Gasto, {
+    foreignKey: 'conductor_id'
+  })
+  public gasto: HasMany<typeof Gasto>
 
   @hasMany(() => Turno, {
     foreignKey: 'conductor_id'
