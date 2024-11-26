@@ -2,6 +2,9 @@ import { schema, rules } from '@ioc:Adonis/Core/Validator';
 
 export const categoriaProductoValidation = {
   schema: schema.create({
+    cantidad: schema.number([
+      rules.required(),
+    ]),
     categoria_id: schema.number([
       rules.required(),
     ]),

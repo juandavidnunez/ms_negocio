@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, HasMany, hasMany, HasOne, hasOne } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, HasOne, hasOne } from '@ioc:Adonis/Lucid/Orm'
 import Direccion from './Direccion'
 
 export default class CentrosDistribucion extends BaseModel {
@@ -17,7 +17,7 @@ export default class CentrosDistribucion extends BaseModel {
   public updatedAt: DateTime
 
   @hasOne(() => Direccion, {
-    foreignKey: 'centro_distribucions_id',
+    foreignKey: 'centrosDistribucionId',
   })
   public direccion: HasOne<typeof Direccion>
 }

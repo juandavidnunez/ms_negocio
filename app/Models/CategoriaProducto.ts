@@ -7,6 +7,9 @@ export default class CategoriaProducto extends BaseModel {
   public id: number
 
   @column()
+  public cantidad: number
+
+  @column()
   public categoria_id: number
 
   @column()
