@@ -9,7 +9,7 @@ export default class extends BaseSchema {
       table.integer('numero').notNullable()
       table.integer('valor').notNullable()
 
-      table.integer('contrato_id').unsigned().references('contratos.id').onDelete('CASCADE')
+      table.integer('contrato_id').unsigned().references('contratoes.id').onDelete('CASCADE')
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL

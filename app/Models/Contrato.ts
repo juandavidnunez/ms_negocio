@@ -15,7 +15,7 @@ export default class Contrato extends BaseModel {
   @column()
   public valor: number
 
-  @column()
+  @column.dateTime()
   public fecha_inicio: DateTime
 
   @column()

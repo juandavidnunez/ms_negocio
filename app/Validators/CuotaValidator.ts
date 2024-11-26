@@ -9,7 +9,7 @@ export const cuotaValidation = {
       rules.required()
     ]),
     contrato_id: schema.number([
-      rules.exists({ table: 'contratos', column: 'id' }),
+      rules.exists({ table: 'contratoes', column: 'id' }),
       rules.required()
     ])
   })

@@ -4,7 +4,7 @@ export const rutaValidation = {
     schema: schema.create({
         contratoId: schema.number([
             rules.required(),
-            rules.exists({ table: 'contratos', column: 'id' })
+            rules.exists({ table: 'contratoes', column: 'id' })
         ]),
         vehiculoId: schema.number([
             rules.required(),
