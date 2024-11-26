@@ -10,8 +10,9 @@ export default class Administrador extends BaseModel {
   public user_id: number
 
 
- 
-  public usuario: BelongsTo<typeof Usuario>
+  @belongsTo(() => Usuario, {
+    foreignKey: 'user_id'
+  })  public usuario: BelongsTo<typeof Usuario>
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

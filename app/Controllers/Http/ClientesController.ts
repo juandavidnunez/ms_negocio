@@ -1,15 +1,15 @@
 import axios from 'axios';
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import Cliente from 'App/Models/Cliente';
-
-const { Env } = require('@adonisjs/core/build/standalone');
+import Env from '@ioc:Adonis/Core/Env';
+import Usuario from 'App/Models/Usuario';
 
 class ClientesController {
   private apiUrl: string;
 
   constructor() {
-    this.apiUrl = 'http://localhost:8081';
-    //this.apiUrl = Env.MS_SECURITY;
+    // Usa la variable de entorno para la URL del microservicio de seguridad
+    this.apiUrl = Env.get('MS_SECURITY');
   }
 
   public async create({ request, response }: HttpContextContract) {
@@ -61,16 +61,26 @@ class ClientesController {
       }
 
       // Crear un nuevo cliente en tu base de datos con el ID de usuario
-      const cliente = new Cliente();
-      cliente.user_id = userId; // Guarda el ID del usuario en el modelo Cliente
-      await cliente.save();
-
-      // Responder con los datos del cliente creado
-      response.status(201).send({
-        user: userResponse.data,
-        role: roleResponse.data,
-        cliente: cliente,
-      });
+     // Crear un nuevo registro en la tabla de usuarios con el ID de usuario devuelto por el sistema de seguridad
+     const usuario = new Usuario();
+     usuario.security_id = userId; // Guarda el ID del usuario devuelto por el sistema de seguridad
+     await usuario.save();
+ 
+     // Obtener el ID autogenerado del registro en la tabla de usuarios
+     const usuarioId = usuario.id;
+ 
+     // Crear un nuevo cliente en tu base de datos con el ID de usuario autogenerado
+     const cliente = new Cliente();
+     cliente.user_id = usuarioId; // Guarda el ID autogenerado en el modelo cliente
+     await cliente.save();
+ 
+     // Responder con los datos del cliente creado
+     response.status(201).send({
+       user: userResponse.data,
+       role: roleResponse.data,
+       cliente: cliente,
+     });
+      
     } catch (error) {
       console.error('Error al consumir la API de Adonis:', error);
 
@@ -82,7 +92,26 @@ class ClientesController {
     }
   }
 
+  // Listar todos los usuarios
+  public async findAll({ request, response }: HttpContextContract) {
+    try {
+      const token = request.header('Authorization');
+      if (!token) {
+        return response.status(401).send('Token de acceso faltante');
+      }
 
+      const adonisResponse = await axios.get(`${this.apiUrl}/users`, {
+        headers: {
+          'Authorization': token,
+        },
+      });
+
+      response.status(adonisResponse.status).send(adonisResponse.data);
+    } catch (error) {
+      console.error('Error al consumir la API de Adonis:', error);
+      response.status(error.response?.status || 500).send('Error al consumir la API de Adonis');
+    }
+  }
 
   // Obtener un usuario por id
   public async findById({ params, request, response }: HttpContextContract) {
@@ -135,7 +164,7 @@ class ClientesController {
     }
   }
 
-  
+  // Eliminar un usuario por id
   public async delete({ params, request, response }: HttpContextContract) {
     try {
       const token = request.header('Authorization');
@@ -152,11 +181,11 @@ class ClientesController {
   
       // Si la solicitud de eliminación tiene éxito, respondemos con un mensaje de éxito
       response.status(200).send('Usuario eliminado correctamente');
-      
     } catch (error) {
       console.error('Error al eliminar el usuario:', error);
       response.status(error.response?.status || 500).send(error.response?.data || 'Error al eliminar el usuario');
     }
   }
 }
+
 export default ClientesController;

@@ -14,7 +14,7 @@ export default class PersonaNatural extends BaseModel {
   @column()
   public fecha_nacimiento: DateTime
 
-  @column({ isPrimary: true })
+  @column()
   public cedula: string
 
   @column()

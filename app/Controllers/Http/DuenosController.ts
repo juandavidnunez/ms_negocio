@@ -2,12 +2,14 @@ import axios from 'axios';
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import Dueno from 'App/Models/Dueno'; // Asegúrate de importar tu modelo de Dueno
 import Usuario from 'App/Models/Usuario'; // Asegúrate de importar tu modelo de Usuario
+import Env from '@ioc:Adonis/Core/Env';
+
 
 class DuenosController {
   private apiUrl: string;
 
   constructor() {
-    this.apiUrl = 'http://localhost:8080';
+    this.apiUrl = Env.get('MS_SECURITY');
   }
 
   public async create({ request, response }: HttpContextContract) {
