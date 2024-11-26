@@ -1,10 +1,5 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Cliente from 'App/Models/Cliente'
-import { clienteValidation } from 'App/Validators/ClientesValidator'
 import axios from 'axios'
-import TitularesController from './TitularesController';
-
-
 
 export default class ClientesController {
  
