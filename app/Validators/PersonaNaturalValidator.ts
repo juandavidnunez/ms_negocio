@@ -3,7 +3,9 @@ import { schema, rules } from '@ioc:Adonis/Core/Validator'
 export const PersonaNaturalCreateValidator = {
   schema: schema.create({
     nombre: schema.string({}, [rules.required()]),
-    fecha_nacimiento: schema.date({}, [rules.required()]),
+    fecha_nacimiento: schema.date({
+      format: "yyyy-MM-dd",
+    }, [rules.required()]),
     cedula: schema.string({}, [
       rules.required(),
       rules.unique({ table: 'persona_naturals', column: 'cedula' }),

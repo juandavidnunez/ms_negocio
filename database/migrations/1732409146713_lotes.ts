@@ -10,7 +10,7 @@ export default class extends BaseSchema {
       table.integer('cantidad_productos').notNullable()
       table.integer('peso_total').notNullable()
       table.datetime('fecha_creacion').notNullable()
-      table.datetime('fecha_entrega')
+      table.datetime('fecha_entrega').nullable()
 
       table.integer('dir_lista_orden_id').unsigned().references('dir_listas_ordenes.id').onDelete('CASCADE')
       table.integer('ruta_id').unsigned().references('rutas.id').onDelete('CASCADE')

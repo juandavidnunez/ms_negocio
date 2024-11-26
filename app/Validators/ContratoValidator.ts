@@ -8,7 +8,9 @@ export const contratoValidation = {
     valor: schema.number([
       rules.required()
     ]),
-    fecha_inicio: schema.date({}, [
+    fecha_inicio: schema.date({
+      format: "yyyy-MM-dd",
+    }, [
       rules.required()
     ]),
     cliente_id: schema.number([

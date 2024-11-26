@@ -5,7 +5,9 @@ export const duenoValidation = {
     nombre: schema.string({}, [
       rules.required()
     ]),
-    fecha_nacimiento: schema.date({}, [
+    fecha_nacimiento: schema.date({
+      format: "yyyy-MM-dd",
+    }, [
       rules.required()
     ]),
     cedula: schema.string({}, [

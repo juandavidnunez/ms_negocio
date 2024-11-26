@@ -6,10 +6,14 @@ export const turnoValidation = {
       rules.exists({ table: 'conductores', column: 'id' }),
       rules.required()
     ]),
-    hora_inicio: schema.date({}, [
+    hora_inicio: schema.date({
+      format: "yyyy-MM-dd HH:mm:ss",
+    }, [
       rules.required()
     ]),
-    hora_vencimiento: schema.date({}, [
+    hora_vencimiento: schema.date({
+      format: "yyyy-MM-dd HH:mm:ss",
+    }, [
       rules.required()
     ]),
     dias: schema.string({}, [
