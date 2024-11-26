@@ -1,15 +1,16 @@
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import PersonaNatural from 'App/Models/PersonaNatural'
-import { PersonaNaturalCreateValidator, PersonaNaturalUpdateValidator } from 'App/Validators/PersonaNaturalValidator'
+import { PersonaNaturalUpdateValidator } from 'App/Validators/PersonaNaturalValidator'
 
 export default class PersonasNaturalesController {
-
-  // Crear una nueva persona natural
-  public async create({ request }: HttpContextContract) {
-    const body = await request.validate(PersonaNaturalCreateValidator)
-    const personaNatural = await PersonaNatural.create(body)
-    return personaNatural
+  public async create({ request, response }: HttpContextContract) {
+    const data = request.only(['nombre', 'fecha_nacimiento', 'cedula', 'cliente_id', 'empresa_id', 'usuario_id'])
+    const personaNatural = await PersonaNatural.create(data)
+    return response.status(201).json(personaNatural)
   }
+
+  // Añade aquí otros métodos según sea necesario
+
 
   // Obtener todas las personas naturales
   public async findAll({ request }: HttpContextContract) {
