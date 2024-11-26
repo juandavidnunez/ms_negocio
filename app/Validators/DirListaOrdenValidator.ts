@@ -10,7 +10,7 @@ export const dirListaOrdenValidation = {
       rules.required()
     ]),
     direccionId: schema.number([
-      rules.exists({ table: 'direcciones', column: 'id' }),
+      rules.exists({ table: 'direccions', column: 'id' }),
       rules.required()
     ])
   })

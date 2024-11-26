@@ -2,7 +2,7 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Direccion from 'App/Models/Direccion';
 import { direccionValidation } from 'App/Validators/DireccionValidator';
 
-export default class DireccionesController {
+export default class DireccionsController {
 
   public async create({ request }: HttpContextContract) {
     const body = await request.validate(direccionValidation);
