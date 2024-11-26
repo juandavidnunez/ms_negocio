@@ -6,7 +6,7 @@ export const empresaValidation = {
       rules.required()
     ]),
     cliente_id: schema.number([
-      rules.exists({ table: 'usuarios', column: 'id' }),
+      rules.exists({ table: 'clientes', column: 'id' }),
       rules.required()
     ])
   })

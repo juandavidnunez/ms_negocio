@@ -5,6 +5,10 @@ export const CentrosDistribucionValidation = {
     nombre: schema.string({}, [
       rules.required(),
       rules.maxLength(15)
+    ]),
+    municipio_id: schema.number([
+      rules.required(),
+      rules.exists({ table: 'municipios', column: 'id' })
     ])
   })
 }

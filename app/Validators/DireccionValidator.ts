@@ -6,7 +6,11 @@ export const direccionValidation = {
       rules.required(),
       rules.maxLength(15)
     ]),
-    centros_distribucions_id :schema.number([
+    municipioId :schema.number([
+      rules.required(),
+      rules.exists({ table: 'municipios', column: 'id' })
+    ]),
+    centrosDistribucionId :schema.number([
       rules.required(),
       rules.exists({ table: 'centros_distribucions', column: 'id' })
     ])

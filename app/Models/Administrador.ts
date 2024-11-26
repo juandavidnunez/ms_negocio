@@ -9,8 +9,6 @@ export default class Administrador extends BaseModel {
   @column()
   public user_id: number
 
-
- 
   public usuario: BelongsTo<typeof Usuario>
 
   @column.dateTime({ autoCreate: true })
