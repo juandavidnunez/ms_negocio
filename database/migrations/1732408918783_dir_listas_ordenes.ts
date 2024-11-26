@@ -9,7 +9,7 @@ export default class extends BaseSchema {
       table.integer('orden').notNullable()
 
       table.integer('ruta_id').unsigned().references('rutas.id').onDelete('CASCADE')
-      table.integer('direccion_id').unsigned().references('direcciones.id').onDelete('CASCADE')
+      table.integer('direccion_id').unsigned().references('direccions.id').onDelete('CASCADE')
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
