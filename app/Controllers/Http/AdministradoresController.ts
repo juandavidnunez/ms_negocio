@@ -1,28 +1,24 @@
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import axios from 'axios'
+import axios from 'axios';
+import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
+import Administrador from 'App/Models/Administrador';
 
-
-
-
-export default class AdministradorsController {
+class AdministradoresController {
   private apiUrl: string;
 
   constructor() {
-    this.apiUrl = 'http://localhost:8181/api';
+    this.apiUrl = 'http://localhost:8080/api';
   }
-
 
   public async create({ request, response }: HttpContextContract) {
     try {
       const body = request.only(['name', 'email', 'password']);
       const token = request.header('Authorization');
-      const toke=token
   
       if (!token) {
         return response.status(401).send('Token de acceso faltante');
       }
   
-      // Crear usuario
+      // Crear usuario en el microservicio de seguridad
       const userResponse = await axios.post(
         `${this.apiUrl}/users`,
         {
@@ -44,21 +40,34 @@ export default class AdministradorsController {
       if (!userId) {
         return response.status(500).send('Error al crear el usuario, ID no encontrado');
       }
-      console.log(toke)
-
+  
       // Asignar rol al usuario creado
-      const roleResponse = await axios.put(
-        `${this.apiUrl}/users/${userId}/role/664f1e495294c54dc1d03e54`,
+      const roleResponse = await axios.post(
+        `${this.apiUrl}/user_roles/user/${userId}/role/664f1e495294c54dc1d03e54`,
         {},
         {
           headers: {
-            'Authorization': toke,
+            'Authorization': token,
           },
         }
       );
   
-      // Responder con los datos del rol asignado
-      response.status(roleResponse.status).send(roleResponse.data);
+      // Verificar que la asignación de rol fue exitosa
+      if (roleResponse.status !== 200) {
+        return response.status(roleResponse.status).send('Error al asignar el rol');
+      }
+  
+      // Crear un nuevo administrador en tu base de datos con el ID de usuario
+      const administrador = new Administrador();
+      administrador.user_id = userId; // Guarda el ID del usuario en el modelo Administrador
+      await administrador.save();
+  
+      // Responder con los datos del administrador creado
+      response.status(201).send({
+        user: userResponse.data,
+        role: roleResponse.data,
+        administrador: administrador,
+      });
     } catch (error) {
       console.error('Error al consumir la API de Adonis:', error);
   
@@ -69,7 +78,7 @@ export default class AdministradorsController {
       response.status(status).send(message);
     }
   }
-  
+
 
   // Listar todos los usuarios
   public async findAll({ request, response }: HttpContextContract) {
@@ -168,3 +177,5 @@ export default class AdministradorsController {
   }
     
 }
+export default AdministradoresController;
+

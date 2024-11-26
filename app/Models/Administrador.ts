@@ -7,12 +7,10 @@ export default class Administrador extends BaseModel {
   public id: number
 
   @column()
-  public user_id: string
+  public user_id: number
 
 
-  @belongsTo(() => Usuario, {
-    foreignKey: 'Administrador_id',
-  })
+ 
   public usuario: BelongsTo<typeof Usuario>
 
   @column.dateTime({ autoCreate: true })
