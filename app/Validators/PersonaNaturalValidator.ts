@@ -6,7 +6,7 @@ export const PersonaNaturalCreateValidator = {
     fecha_nacimiento: schema.date({}, [rules.required()]),
     cedula: schema.string({}, [
       rules.required(),
-      rules.unique({ table: 'persona_naturales', column: 'cedula' }),
+      rules.unique({ table: 'persona_naturals', column: 'cedula' }),
     ]),
     cliente_id: schema.number([
       rules.required(),
@@ -27,7 +27,7 @@ export const PersonaNaturalUpdateValidator = {
     nombre: schema.string.optional(),
     fecha_nacimiento: schema.date.optional(),
     cedula: schema.string.optional({}, [
-      rules.unique({ table: 'persona_naturales', column: 'cedula' }),
+      rules.unique({ table: 'persona_naturals', column: 'cedula' }),
     ]),
     cliente_id: schema.number.optional([
       rules.exists({ table: 'clientes', column: 'id' }),

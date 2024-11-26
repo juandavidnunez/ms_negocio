@@ -17,7 +17,7 @@ export default class CentrosDistribucionsController {
     return CentrosDistribucions
   }
   public async show ({params}:HttpContextContract){
-    return CentrosDistribucion.query().where("id",params.id).preload('Direcciones');
+    return CentrosDistribucion.query().where("id",params.id).preload('direccion');
   }
 
 

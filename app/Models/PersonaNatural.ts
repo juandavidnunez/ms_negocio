@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import { BaseModel, BelongsTo, belongsTo, column, HasOne, hasOne } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
 import Empresa from './Empresa'
 import Usuario from './Usuario'
 import Cliente from './Cliente'
@@ -14,7 +14,7 @@ export default class PersonaNatural extends BaseModel {
   @column()
   public fecha_nacimiento: DateTime
 
-  @column({ isPrimary: true })
+  @column()
   public cedula: string
 
   @column()

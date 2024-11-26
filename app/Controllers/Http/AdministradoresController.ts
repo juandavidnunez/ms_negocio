@@ -1,12 +1,14 @@
 import axios from 'axios';
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import Administrador from 'App/Models/Administrador';
+import Env from '@ioc:Adonis/Core/Env';
+import Usuario from 'App/Models/Usuario';
 
 class AdministradoresController {
   private apiUrl: string;
 
   constructor() {
-    this.apiUrl = 'http://localhost:8080/api';
+    this.apiUrl = Env.get('MS_SECURITY');
   }
 
   public async create({ request, response }: HttpContextContract) {
@@ -57,9 +59,16 @@ class AdministradoresController {
         return response.status(roleResponse.status).send('Error al asignar el rol');
       }
   
-      // Crear un nuevo administrador en tu base de datos con el ID de usuario
+      const usuario = new Usuario();
+      usuario.security_id = userId; // Guarda el ID del usuario devuelto por el sistema de seguridad
+      await usuario.save();
+  
+      // Obtener el ID autogenerado del registro en la tabla de usuarios
+      const usuarioId = usuario.id;
+  
+      // Crear un nuevo administrador en tu base de datos con el ID de usuario autogenerado
       const administrador = new Administrador();
-      administrador.user_id = userId; // Guarda el ID del usuario en el modelo Administrador
+      administrador.user_id = usuarioId; // Guarda el ID autogenerado en el modelo administrador
       await administrador.save();
   
       // Responder con los datos del administrador creado
@@ -68,6 +77,7 @@ class AdministradoresController {
         role: roleResponse.data,
         administrador: administrador,
       });
+       
     } catch (error) {
       console.error('Error al consumir la API de Adonis:', error);
   
