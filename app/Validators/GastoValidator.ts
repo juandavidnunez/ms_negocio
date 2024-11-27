@@ -15,7 +15,7 @@ export default class GastoValidator {
     ]),
     conductor_id: schema.number([
       rules.required(),
-      rules.exists({ table: 'conductores', column: 'id' })
+      rules.exists({ table: 'conductors', column: 'id' })
     ]),
     servicio_id: schema.number([
       rules.required(),

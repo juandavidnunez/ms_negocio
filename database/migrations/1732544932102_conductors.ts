@@ -1,7 +1,7 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 
 export default class Conductores extends BaseSchema {
-  protected tableName = 'conductores'
+  protected tableName = 'conductors'
 
   public async up () {
     this.schema.createTable(this.tableName, (table) => {

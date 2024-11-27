@@ -6,7 +6,7 @@ export default class Turnos extends BaseSchema {
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
-      table.integer('conductor_id').unsigned().references('id').inTable('conductores').onDelete('CASCADE')
+      table.integer('conductor_id').unsigned().references('id').inTable('conductors').onDelete('CASCADE')
       table.timestamp('hora_inicio', { useTz: true }).notNullable()
       table.timestamp('hora_vencimiento', { useTz: true }).notNullable()
       table.string('dias').notNullable()

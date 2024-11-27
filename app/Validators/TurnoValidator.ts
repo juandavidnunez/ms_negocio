@@ -3,7 +3,7 @@ import { schema, rules } from '@ioc:Adonis/Core/Validator'
 export const turnoValidation = {
   schema: schema.create({
     conductor_id: schema.number([
-      rules.exists({ table: 'conductores', column: 'id' }),
+      rules.exists({ table: 'conductors', column: 'id' }),
       rules.required()
     ]),
     hora_inicio: schema.date({
