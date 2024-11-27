@@ -46,7 +46,7 @@ class DuenosController {
   
       // Asignar rol al usuario creado
       const roleResponse = await axios.post(
-        `${this.apiUrl}/user_roles/user/${userId}/role/66526f9f2e42f03cc82c1c80`,
+        `${this.apiUrl}/user_roles/user/${userId}/role/6746af0df29625129dc5b4d9`,
         {},
         {
           headers: {

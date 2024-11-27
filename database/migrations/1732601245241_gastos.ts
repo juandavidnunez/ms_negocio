@@ -10,7 +10,6 @@ export default class Gastos extends BaseSchema {
       table.integer('dueno_id').unsigned().notNullable().references('id').inTable('duenos').onDelete('CASCADE')
       table.integer('conductor_id').unsigned().notNullable().references('id').inTable('conductors').onDelete('CASCADE')
       table.integer('servicio_id').unsigned().notNullable().references('id').inTable('servicios').onDelete('CASCADE')
-      table.integer('factura_id').unsigned().nullable().references('id').inTable('facturas').onDelete('SET NULL')
       table.timestamp('created_at', { useTz: true }).defaultTo(this.now())
       table.timestamp('updated_at', { useTz: true }).defaultTo(this.now())
     })

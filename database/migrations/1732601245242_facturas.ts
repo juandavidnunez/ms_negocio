@@ -12,6 +12,7 @@ export default class extends BaseSchema {
       table.string('info')
       table.boolean('success')
 
+      table.integer('gasto_id').unsigned().references('gastos.id')
       table.integer('cuota_id').unsigned().references('cuotas.id')
 
       /**

@@ -20,6 +20,9 @@ export default class Factura extends BaseModel {
   public success: boolean
 
   @column()
+  public gasto_id: number
+
+  @column()
   public cuota_id: number
 
   @belongsTo(() => Cuota, {
@@ -27,10 +30,10 @@ export default class Factura extends BaseModel {
   })
   public cuota: BelongsTo<typeof Cuota>
 
-  @hasOne(() => Gasto, {
+  @belongsTo(() => Gasto, {
     foreignKey: 'gasto_id'
   })
-  public gasto: HasOne<typeof Gasto>
+  public gasto: BelongsTo<typeof Gasto>
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
